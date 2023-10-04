@@ -1,11 +1,11 @@
-import ItemLitContainer from "./components/ItemListContainer/ItemListContainer"
+import ItemListContainer from "./components/ItemListContainer/ItemListContainer"
 import NavBar from "./components/Navbar/NavBar";
 
 function App() {
     return (
     <div className="App">
       <NavBar />
-      <ItemLitContainer greetEng="Bienvenido a Ginna Shop"/>
+      <ItemListContainer greetEng="Bienvenido a Ginna Shop"/>
       </div>
     );
 };
