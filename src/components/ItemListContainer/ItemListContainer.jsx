@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ItemCount from "../ItemCount/ItemCount";
-import imagen from "./../img/billeteras/11.png";
+import imagen from "../img/billeteras/11.png";
 import ItemList from "../ItemList/ItemList";
 
 const ItemListContainer = ({greeting}) => {
