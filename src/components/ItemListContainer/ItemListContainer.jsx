@@ -1,45 +1,30 @@
 import React, { useEffect, useState } from "react";
-import ItemCount from "../ItemCount/ItemCount";
-import imagen from "../img/billeteras/11.png";
 import ItemList from "../ItemList/ItemList";
+import { getProducts } from "../mock/data";
+import { useParams } from "react-router-dom";
 
 const ItemListContainer = ({greeting}) => {
     const [productos, setProductos]=useState([])
-    const list = [
-        {id: '01', name: 'billetera', stock: '5', price: '2500', description: 'lorenlorenloren', img: imagen},
-        {id: '02', name: 'billetera', stock: '5', price: '2500', description: 'lorenlorenloren', img: 'https://i.postimg.cc/ftSthSs0/10.png'}
-    ]
-    const getProducts = () => {
-        return new Promise((resolve, reject) => {
-            let error = false
-            setTimeout(()=>{
-                if (error){
-                    reject("no hay data, intente mas tarde")
-                }
-                else{
-                    resolve(list)
-                }
-            },2000)
-        })
-    }
+    const {categoryId} = useParams()
     useEffect(()=>{
         getProducts()
-        .then((res)=> setProductos(res))
+        .then((res)=>{
+            if(categoryId){
+                setProductos(res.filter((item)=> item.category === categoryId))
+            }else{  
+                setProductos(res)
+            }
+        })
         .catch((error)=> console.log(error))
-    },[])   
-    const onAdd = (Cantidad) =>{
-        console.log('compraste $ {Cantidad} productos')
-    }
+    },[categoryId])   
 
-    console.log(productos)
     return(
         <div>
             <h1>{greeting}</h1>
-            <ItemList productos={productos}/>
-            <ItemCount initial={1} stock={10} onAdd={onAdd}/>
-            
+            <h2><span>{categoryId && categoryId }</span></h2>
+            <ItemList productos={productos}/>      
         </div>
-    );
-};
+    )
+}
 
 export default ItemListContainer;
