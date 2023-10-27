@@ -1,27 +1,28 @@
 import React,{useEffect, useState} from "react";
-import itemDetail from "../itemDetail/itemDetail";
 import { getItem } from "../mock/data";
 import { useParams } from "react-router-dom";
+import ItemDetail from "../ItemDetail/ItemDetail";
 
 
-const ItemListContainer = ({}) => {
-    const [productos, setProductos]=useState({})
-    const [loader, setLoader] = useState(false)
+// eslint-disable-next-line no-unused-vars, no-empty-pattern
+const ItemDetailContainer = ({}) => {
+    const [producto, setProductos] = useState({})
+    const [, setLoader] = useState(false)
     const {id} = useParams()
     
     useEffect(()=>{ 
-        setLoader(true)
             getItem(id)
             .then((res)=> setProductos(res))
             .catch((error)=> console.log(error))
             .finally(() => setLoader(false))
-     },[])
+     },[id])
 
     return(
         <div>
-            <itemDetail producto={producto}/>
+            <ItemDetail producto={producto}/>
         </div>
     )
-};
+}
 
-export default itemDetailContainer;
+
+export default ItemDetailContainer;

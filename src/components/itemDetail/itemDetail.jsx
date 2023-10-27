@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import ItemCount from "../ItemCount/ItemCount";
-import Item from "../Item/Item";
+import { Link } from "react-router-dom";
+import { CartContext } from "../Context/CartContext";
 
-const itemDetail =({producto}) => {
+const ItemDetail = ({producto}) => {
+    const [quantilyAddeb, setQuantilyAddeb] = useState("")
+
+    const {addItem} = CartContext (CartContext)
+    
     const onAdd = (cantidad) => {
-        const onAdd = (Cantidad) =>{
-            console.log('compraste $ {Cantidad} productos')
-        }
+        setQuantilyAddeb(cantidad)
+        addItem(producto, cantidad )
     }
+
         return (   
-        <div className="d-flex flex-column align-items-center">
+        <div className='d-flex flex-column align-items-center'>
             <h3>Detalle de :{producto.name}</h3>
             <img src={producto.img} alt={producto.name}/>
             <p>{producto.descripcion}</p>
             <p>${producto.price}</p>
-            <ItemCount initial={1} stock={producto.stock} onAdd={onAdd}/>
+            {quantilyAddeb === '' ? <ItemCount initial={1} stock={producto.stock} onAdd={onAdd}/>
+            : <Link to='/cart' className='btn bte-dark'>Ir al Carrito </Link>}
+        
         </div>
         )
 }
 
-export default itemDetail; 
+export default ItemDetail; 
